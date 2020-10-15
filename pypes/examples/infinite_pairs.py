@@ -2,7 +2,7 @@ import random
 import string
 import logging
 
-from pypes.components import Processor, Funnel, Pipeline
+from pypes import Processor, Funnel, Pipeline
 
 def add(data):
     # add or append items in a two-tuple
