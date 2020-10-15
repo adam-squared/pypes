@@ -1,2 +1,2 @@
 # pypes
-a framework for lightweight, stateless data processing
+A framework for building lightweight, stateless data processing pipelines with python.

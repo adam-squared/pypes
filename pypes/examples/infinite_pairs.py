@@ -37,8 +37,6 @@ def get_word_pairs():
     while True:
         a = ''.join(random.choice(string.ascii_lowercase) for i in range(8))
         b = ''.join(random.choice(string.ascii_lowercase) for i in range(8))
-        print(a)
-        print(b)
         yield 'success', (a, b)
 
 
