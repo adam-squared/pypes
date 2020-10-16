@@ -170,6 +170,7 @@ class CallableProcFn(ProcFn):
 
 
 class Runner(abc.ABC):
+    @abstractmethod
     def run(self, procs, *args):
         """Run the provided Processors using the provided args as input.
 
@@ -177,7 +178,7 @@ class Runner(abc.ABC):
             procs (list): A list of Processors to execute.
             *args (any): optional input data for the Processors.
         """
-
+        pass
 
 class SimpleRunner:
     """Visits each Processor in a pipeline, retrieves its generator and then
