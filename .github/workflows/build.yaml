@@ -5,14 +5,13 @@ on:
     branches-ignore:
       - gh-pages
 jobs:
-  setup:
+  build:
     name: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - shell: bash
-        run: pip install pyflakes coverage pytest
+      - run: pip install pyflakes coverage pytest
       - shell: bash
         run: |
           if [ ! -z "$REQ_PATH" ]; then
@@ -20,11 +19,4 @@ jobs:
           fi;
         env:
           REQ_PATH: ""
-
-  lint:
-    needs: [setup]
-    name: lint
-    runs-on: ubuntu-latest
-    steps:
-      - shell: bash
-        run: pyflakes .
+      - run: pyflakes .
