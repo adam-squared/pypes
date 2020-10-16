@@ -162,10 +162,10 @@ class CallableProcFn(ProcFn):
         fn (callable): A function or lambda to be used as for processing.
     """
 
-    def __init__(self, fn) -> Iterator[tuple]:
+    def __init__(self, fn):
         self.fn = fn
 
-    def process(self, *args):
+    def process(self, *args) -> Iterator[tuple]:
         return self.fn(*args)
 
 
