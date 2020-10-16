@@ -22,6 +22,7 @@ jobs:
           REQ_PATH: ""
 
   lint:
+    needs: [setup]
     name: lint
     runs-on: ubuntu-latest
     steps:
