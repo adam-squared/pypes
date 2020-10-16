@@ -3,9 +3,17 @@
 
 A framework for building lightweight, stateless data processing pipelines with python.
 
+## Features
+
+- Concise syntax for assembling and executing a data pipeline
+- Consume data from multiple bound or unbound sources
+- Easily create processing steps from funcions lambdas or extend the ProcFn class for more complex tasks
+- Control flow by defining relationships between processors
+- Route data to multiple destinations, or funnel multiple sources into a single destination
+
 ## Quick Start
 
-1. Define your data sources, as functions, lambdas or ProcFns:
+1. Define your processing steps, as functions, lambdas or ProcFns:
     ```python
     def get_number_pairs():
         while True:
