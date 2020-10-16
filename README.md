@@ -7,7 +7,7 @@ A framework for building lightweight, stateless data processing pipelines with p
 
 - Concise syntax for assembling and executing a data pipeline
 - Consume data from multiple bound or unbound sources
-- Easily create processing steps from funcions lambdas or extend the ProcFn class for more complex tasks
+- Easily create processing steps from functions, lambdas or the ProcFn class for more complex tasks
 - Control flow by defining relationships between processors
 - Route data to multiple destinations, or funnel multiple sources into a single destination
 
