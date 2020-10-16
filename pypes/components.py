@@ -5,6 +5,7 @@ import uuid
 from typing import Iterator
 from abc import abstractmethod
 
+
 class Processor:
     """A Wrapper for a function, lambda or ProcFn object that allows
     processing logic to be chained together as part of a pipeline. Can
@@ -16,6 +17,7 @@ class Processor:
         name (str): an optional name for the processor. If not specified, a
             uuid will be used.
     """
+
     def __init__(self, fn, name=None):
         self._relationships = {}
         self._id = str(uuid.uuid4())
@@ -39,9 +41,9 @@ class Processor:
 
     def __or__(self, other):
         # pipe processors together using an implicit 'success' relationship
-        rel = self._relationships.get('success')
+        rel = self._relationships.get("success")
         if not rel:
-            rel = self._relationships['success'] = Relationship()
+            rel = self._relationships["success"] = Relationship()
         return rel | other
 
     def __rshift__(self, other):
@@ -89,6 +91,7 @@ class Relationship:
     destination processors. If a relationship doesn't have any destinations,
     any data sent to the relationship is discarded.
     """
+
     def __init__(self):
         self._destinations = []
 
@@ -115,6 +118,7 @@ class Funnel:
         args* (Processor or Relationship): A list of Processors and/or
             Relationships to connect to a destination processor.
     """
+
     def __init__(self, *args):
         self._inputs = args
 
@@ -131,6 +135,7 @@ class ProcFn(abc.ABC):
     method for defining a data processing task that operates on zero or one
     input.
     """
+
     def setup(self):
         pass
 
@@ -156,6 +161,7 @@ class CallableProcFn(ProcFn):
     Args:
         fn (callable): A function or lambda to be used as for processing.
     """
+
     def __init__(self, fn) -> Iterator[tuple]:
         self.fn = fn
 
@@ -178,9 +184,9 @@ class SimpleRunner:
     iterates the generator until it is exhausted, recursively passing each
     item of output to any destination processors.
     """
+
     def run(self, procs, *args):
         gens = {}
-        done = False
         for proc in procs:
             gen = proc.process(*args)
             if gen:
@@ -208,7 +214,7 @@ class SimpleRunner:
                     self.run(rel.destinations, out[1])
 
         # get rid of any exhausted generators
-        return {k:v for k,v in gens.items() if k not in removed}
+        return {k: v for k, v in gens.items() if k not in removed}
 
 
 class Pipeline:
@@ -251,8 +257,8 @@ class Pipeline:
             node = graph.get(proc.id)
             if not node:
                 node = graph[proc.id] = {}
-                node['proc'] = proc
-                for k,v in proc.relationships.items():
+                node["proc"] = proc
+                for k, v in proc.relationships.items():
                     node[k] = [dest for dest in v]
                     for dest in v:
                         add(dest)
@@ -267,11 +273,11 @@ class Pipeline:
         self._graph = self._get_graph()
 
         for node in self._graph.values():
-            node['proc'].setup()
+            node["proc"].setup()
 
     def teardown(self):
         """Clean up any processor resources before terminating the
         pipeline.
         """
         for node in self._graph.values():
-            node['proc'].teardown()
+            node["proc"].teardown()
