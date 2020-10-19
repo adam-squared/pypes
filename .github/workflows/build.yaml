@@ -21,4 +21,5 @@ jobs:
           REQ_PATH: ""
       - run: pyflakes .
       - run: python -m black . --check
+      - run: coverage run -m pytest
 
