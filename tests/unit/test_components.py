@@ -1,6 +1,3 @@
-import hypothesis
-import pypes
-
 def test_processor_with_func():
     pass
 
