@@ -180,6 +180,7 @@ class Runner(abc.ABC):
         """
         pass
 
+
 class SimpleRunner:
     """Visits each Processor in a pipeline, retrieves its generator and then
     iterates the generator until it is exhausted, recursively passing each

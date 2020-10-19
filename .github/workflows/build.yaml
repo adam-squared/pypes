@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install pyflakes coverage pytest
+      - run: pip install pyflakes coverage pytest black
       - shell: bash
         run: |
           if [ ! -z "$REQ_PATH" ]; then
@@ -20,3 +20,5 @@ jobs:
         env:
           REQ_PATH: ""
       - run: pyflakes .
+      - run: python -m black . --check
+

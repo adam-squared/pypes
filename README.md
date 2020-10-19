@@ -11,9 +11,18 @@ A framework for building lightweight, stateless data processing pipelines with p
 - Control flow by defining relationships between processors
 - Route data to multiple destinations, or funnel multiple sources into a single destination
 
-## Quick Start
+## Quickstart
 
-1. Define your processing steps, as functions, lambdas or ProcFns:
+1. Import some pipeline components
+
+    ```python
+    from pypes import Pipeline, Processor
+    ```
+
+2. Define your processing steps as functions, lambdas or ProcFns. You can accept zero or more args but you
+must return an iterator of two-tuples, where the first element is the output relationship name and the second
+is the output data.
+
     ```python
     def get_number_pairs():
         while True:
@@ -27,7 +36,8 @@ A framework for building lightweight, stateless data processing pipelines with p
         yield "success", a + b
     ```
 
-2. Assemble a pipeline from your steps
+3. Assemble a pipeline from your processing steps by piping them together and wrapping them in a Processor.
+
     ```python
     with Pipeline() as p:
         (p
@@ -37,7 +47,8 @@ A framework for building lightweight, stateless data processing pipelines with p
         )
     ```
 
-3. Run your pipeline script and crunch your data
+4. Run your script to execute the pipeline!
+
     ```bash
     python my_pipeline_script.py
     ```
