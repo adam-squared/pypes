@@ -36,7 +36,7 @@ class Processor:
         self.setup()
         return self
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_value, exc_traceback):
         self.teardown()
 
     def __or__(self, other):
@@ -137,9 +137,11 @@ class ProcFn(abc.ABC):
     """
 
     def setup(self):
+        # optional override
         pass
 
     def teardown(self):
+        # optional override
         pass
 
     @abstractmethod
