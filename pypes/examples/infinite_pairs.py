@@ -39,8 +39,8 @@ def get_number_pairs():
 def get_word_pairs():
     # infinitely generate pairs of random words
     while True:
-        a = "".join(random.choice(string.ascii_lowercase) for i in range(8))
-        b = "".join(random.choice(string.ascii_lowercase) for i in range(8))
+        a = "".join(random.choice(string.ascii_lowercase) for _ in range(8))
+        b = "".join(random.choice(string.ascii_lowercase) for _ in range(8))
         yield "success", (a, b)
 
 
