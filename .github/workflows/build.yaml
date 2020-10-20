@@ -11,18 +11,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install pyflakes coverage pytest black
-      - shell: bash
+      - name: install build dependencies
+        run: pip install pyflakes coverage pytest black
+      - name: install requirements
+        shell: bash
         run: |
           if [ ! -z "$REQ_PATH" ]; then
             pip install -r "$REQ_PATH";
           fi;
         env:
           REQ_PATH: ""
-      - run: pyflakes .
-      - run: python -m black . --check
-      - run: coverage run -m pytest && coverage xml
-      - name: SonarCloud Scan
+      - name: lint code
+        run: pyflakes .
+      - name: check codestyle
+        run: python -m black . --check
+      - name: test code
+        run: coverage run -m pytest && coverage xml
+      - name: sonarcloud scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
