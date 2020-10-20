@@ -9,8 +9,10 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup python
+        uses: actions/setup-python@v2
       - name: install build dependencies
         run: pip install pyflakes coverage pytest black safety
       - name: install requirements
