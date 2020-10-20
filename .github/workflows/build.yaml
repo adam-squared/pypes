@@ -21,7 +21,7 @@ jobs:
           REQ_PATH: ""
       - run: pyflakes .
       - run: python -m black . --check
-      - run: coverage run -m pytest
+      - run: coverage run -m pytest && coverage xml
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
