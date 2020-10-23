@@ -1,0 +1,39 @@
+name: build
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup python
+        uses: actions/setup-python@v2
+      - name: install build dependencies
+        run: pip install pyflakes coverage pytest black safety
+      - name: install requirements
+        shell: bash
+        run: |
+          if [ ! -z "$REQ_PATH" ]; then
+            pip install -r "$REQ_PATH";
+          fi;
+        env:
+          REQ_PATH: ""
+      - name: lint code
+        run: pyflakes .
+      - name: check dependencies
+        run: safety check
+      - name: check codestyle
+        run: python -m black . --check
+      - name: test code
+        run: coverage run -m pytest && coverage xml
+      - name: sonarcloud scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
